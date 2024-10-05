@@ -1,0 +1,10 @@
+fastapi                # FastAPI framework for creating the API
+uvicorn                # ASGI server to run FastAPI applications
+sqlalchemy             # ORM for interacting with the database
+databases              # For database connections with async support
+pydantic               # Data validation and parsing using Python type annotations
+psycopg2-binary        # PostgreSQL adapter (use this if using PostgreSQL)
+# or
+mysqlclient            # MySQL adapter (use this if using MySQL)
+alembic                # Optional: For handling database migrations
+python-dotenv          # Optional: For managing environment variables
