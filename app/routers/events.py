@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from .. import crud, schemas
-from ..database import get_db
 from typing import List
+from .. import crud, schemas, models
+from ..database import get_db
 
 router = APIRouter()
 
@@ -13,3 +13,11 @@ def create_event(event: schemas.EventCreate, db: Session = Depends(get_db)):
 @router.get("/events/", response_model=List[schemas.EventResponse])
 def get_events(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     return crud.get_events(db=db, skip=skip, limit=limit)
+
+@router.get("/events/", response_model=List[schemas.EventResponse])
+def get_events(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    """
+    Get all events with pagination support.
+    """
+    events = crud.get_events(db=db, skip=skip, limit=limit)
+    return events

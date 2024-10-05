@@ -1,10 +1,15 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "postgresql://user:password@localhost/guild_management"  # Replace with actual credentials
+# Define the path for the SQLite database
+SQLITE_DB_PATH = os.getenv("SQLITE_DB_PATH", "guild_management.db")  # Use environment variable if defined, else default
+
+# Create the engine for SQLite
+DATABASE_URL = f"sqlite:///{SQLITE_DB_PATH}"
 
 # SQLAlchemy engine
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 
 # Create a session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
